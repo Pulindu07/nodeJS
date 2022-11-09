@@ -1,4 +1,14 @@
 const http = require("http")
+const EventEmitter = require("events")
+
+const customEmitter = new EventEmitter()
+
+customEmitter.on("response",()=>{
+    console.log("Data Received!")
+})
+
+customEmitter.emit("response")
+
 const port =8000
 const server = http.createServer((req,res)=>{
     res.write("Welcome")
