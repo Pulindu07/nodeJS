@@ -13,6 +13,7 @@ const port =8000
 const server = http.createServer((req,res)=>{
     res.write("Welcome")
     res.end()
+    // console.log("req: ",req,"res: ",res)
 })
 
 
