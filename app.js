@@ -1,11 +1,10 @@
-const { log } = require("console")
 const express = require("express")
 const path = require("path")
-const { hasUncaughtExceptionCaptureCallback } = require("process")
+const logger = require("./logger")
 
 const app = express()
 
-app.get("/",(req,res)=>{
+app.get("/",logger,(req,res)=>{
     res.status(200).sendFile(path.join(__dirname,"./public/index.html"))
 })
 
