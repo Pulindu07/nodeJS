@@ -1,23 +1,17 @@
-const http = require("http")
-const EventEmitter = require("events")
+const express = require("express")
+const path = require("path")
 
-const customEmitter = new EventEmitter()
+const app = express()
 
-customEmitter.on("response",()=>{
-    console.log("Data Received!")
+app.get("/",(req,res)=>{
+    res.status(200).sendFile(path.join(__dirname,"./public/index.html"))
 })
 
-customEmitter.emit("response")
+app.all("*",(req,res)=>{
+    res.status(404).send("Page is not available!")
+})
 
 const port =8000
-const server = http.createServer((req,res)=>{
-    res.write("Welcome")
-    res.end()
-    // console.log("req: ",req,"res: ",res)
-})
-
-
-
-server.listen(port, function(){
+app.listen(port, function(){
     console.log(`Server started on Port ${port}`);
 });
