@@ -1,10 +1,16 @@
 const express = require("express")
 const path = require("path")
 const logger = require("./logger")
+const apiLoggers = require("./specific-middle-ware")
 
 const app = express()
+//middleware functions
 
-app.get("/",logger,(req,res)=>{
+// app.use(logger) /*This midleware get applied to all the routes */
+
+app.use("/api",apiLoggers) /* This middleware gets applied to all the routes starting with "localhost:8000/api/" */
+
+app.get("/",(req,res)=>{
     res.status(200).sendFile(path.join(__dirname,"./public/index.html"))
 })
 
@@ -16,7 +22,7 @@ app.get("http://hn.algolia.com/api/v1/search?query=foo&tags=story",(req,res)=>{
 })
 
 app.get("/api/v2/query",(req,res)=>{
-    console.log(req.query)
+    // console.log(req.query)
     res.status(200).sendFile(path.join(__dirname,"./public/index.html"))
 })
 app.all("*",(req,res)=>{
